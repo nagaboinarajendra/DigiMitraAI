@@ -1,0 +1,8 @@
+Q: What is Aadhaar?
+A: Aadhaar is a 12-digit unique identity number issued by the UIDAI (Unique Identification Authority of India) that serves as proof of identity and address for residents of India.
+
+Q: How can I apply for Aadhaar?
+A: You can apply for Aadhaar by visiting any nearby Aadhaar enrollment center with required documents. The process includes providing demographic and biometric information.
+
+Q: What documents are required for Aadhaar enrollment?
+A: You need Proof of Identity (POI), Proof of Address (POA), and Proof of Date of Birth (DOB). Acceptable documents include passport, voter ID, driving license, etc.

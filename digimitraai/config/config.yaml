@@ -1,0 +1,36 @@
+paths:
+  vector_store: "data/vector_store"
+  json_knowledge_base: "data/faqs/consolidated_faqs.json"
+  models_cache: "data/models_cache"
+
+rag:
+  confidence_threshold: 0.8
+  chunk_size: 1000
+  chunk_overlap: 200
+  search_k: 3
+  exact_match_bonus: 0.2
+
+llm:
+  model_name: "gpt-3.5-turbo"
+  temperature: 0.7
+  max_tokens: 500
+
+audio:
+  model_size: "base"
+  confidence_threshold: 0.7
+  supported_formats:
+    - wav
+    - mp3
+  max_duration_seconds: 60
+  sample_rate: 44100
+
+vector_store:
+  similarity_metric: "cosine"
+  normalize_embeddings: true
+  allow_dangerous_deserialization: true
+
+logging:
+  level: "INFO"
+  file: "logs/app.log"
+  max_size: 10485760  # 10MB
+  backup_count: 5

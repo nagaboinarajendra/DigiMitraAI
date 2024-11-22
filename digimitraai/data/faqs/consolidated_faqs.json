@@ -1,0 +1,108 @@
+{
+  "metadata": {
+    "last_updated": "2024-11-22T07:38:49.232732",
+    "total_faqs": 10
+  },
+  "faqs": [
+    {
+      "id": "b6871f90",
+      "question": "Can a fraudster withdraw money from my Aadhaar linked bank account if he knows my Aadhaar \nnumber or has my Aadhaar card?",
+      "answer": "Just by knowing your Aadhaar number or Aadhaar linked bank account, no one can withdraw \nmoney from Aadhaar linked bank account.",
+      "metadata": {
+        "added_date": "2024-11-22T07:38:49.232518",
+        "last_updated": "2024-11-22T07:38:49.232526",
+        "source_type": "converted"
+      }
+    },
+    {
+      "id": "710defb6",
+      "question": "Does linking my bank account, PAN, and other services with Aadhaar make me vulnerable?",
+      "answer": "No. UIDAI does not have visibility of linking of your Aadhaar with any other services. Concern \ndepartments such as bank, income tax etc. do not share any information of Aadhaar number holder \nneither UIDAI stores any such information .",
+      "metadata": {
+        "added_date": "2024-11-22T07:38:49.232546",
+        "last_updated": "2024-11-22T07:38:49.232548",
+        "source_type": "converted"
+      }
+    },
+    {
+      "id": "be142c71",
+      "question": "Why am I asked to verify Bank account, Demat account, PAN and various other services with \nAadhaar?",
+      "answer": "Aadhaar verification/authentication is governed by the sections of Aadhaar Act, 2016, under \nwhich the use case has been notified by the concerned Ministry/Department for providing services.",
+      "metadata": {
+        "added_date": "2024-11-22T07:38:49.232566",
+        "last_updated": "2024-11-22T07:38:49.232567",
+        "source_type": "converted"
+      }
+    },
+    {
+      "id": "c9f3d02b",
+      "question": "There are many agencies that simply accept physical copy of Aadhaar and do not carry out any \nbiometric or OTP authentication or verification. Is this a good practice?",
+      "answer": "No, in this connection MeitY has issued detailed instructions to all Government \nMinistries/Departments vide office memorandum no 10(22)/2017 -EG-II(VOL -1) dated 19.06.2023.",
+      "metadata": {
+        "added_date": "2024-11-22T07:38:49.232581",
+        "last_updated": "2024-11-22T07:38:49.232583",
+        "source_type": "converted"
+      }
+    },
+    {
+      "id": "ae16f4d5",
+      "question": "I gave my Aadhaar card to a service provider for proving my identity. Can anyone harm me by \nknowing and misusing my Aadhaar number?",
+      "answer": "No. Just, by knowing your Aadhaar number, no one can harm you. To prove your identity, \nAadhaar number is verified /authenticated by agencies through various modes as prescribed under \nAadhaar Act, 2016.",
+      "metadata": {
+        "added_date": "2024-11-22T07:38:49.232596",
+        "last_updated": "2024-11-22T07:38:49.232597",
+        "source_type": "converted"
+      }
+    },
+    {
+      "id": "851fc6f2",
+      "question": "If Aadhaar has to be freely used for proving identity and it is safe to do so, then why has UIDAI \nadvised people not to put up their Aadhaar number in Social Media or public domain?",
+      "answer": "You use PAN card, debit card, credit card, bank cheques wherever required. But do you put these \ndetails openly on internet and social media such as Facebook, Twitter, etc.? Obviously no! You do \nnot put such personal details unnecessarily in public domain so that there is no unwar ranted \ninvasion attempt on your privacy. The same logic needs to be applied in case of uses of Aadhaar.",
+      "metadata": {
+        "added_date": "2024-11-22T07:38:49.232616",
+        "last_updated": "2024-11-22T07:38:49.232617",
+        "source_type": "converted"
+      }
+    },
+    {
+      "id": "936f5189",
+      "question": "Recently, UIDAI has issued an advisory asking people not to share their Aadhaar number openly \nin the public domain especially on Social Media or other public platforms. Does this mean that I \nshould not use Aadhaar freely?",
+      "answer": "You should use your Aadhaar without any hesitation for proving your identity and doing \ntransactions, just like you use your bank account number, PAN card, debit card, credit card, etc., \nwherever required. What UIDAI has advised is that Aadhaar card should be freely used for proving \nidentity and doing transactions, but should not be put on public platforms like Twitter, Facebook, \netc. People give their debit card or credit card details or cheque (which has bank account number) \nwhen they purchase goods, or  pay school fee, water, electricity, telephone and other utility bills, etc. \nSimilarly, you can freely use your Aadhaar to establish your identity as and when required without \nany fear. While using Aadhaar, you should do the same level of due diligence as you do in case of \nother ID cards – not more, not less.",
+      "metadata": {
+        "added_date": "2024-11-22T07:38:49.232653",
+        "last_updated": "2024-11-22T07:38:49.232654",
+        "source_type": "converted"
+      }
+    },
+    {
+      "id": "b4c5cc00",
+      "question": "How do I link PAN with Aadhaar?",
+      "answer": "For linking your PAN with Aadhaar, you may visit the website of Income Tax Department and \nfollow the instructions.",
+      "metadata": {
+        "added_date": "2024-11-22T07:38:49.232663",
+        "last_updated": "2024-11-22T07:38:49.232664",
+        "source_type": "converted"
+      }
+    },
+    {
+      "id": "cc7c367d",
+      "question": "What is Aadhaar PVC Card? Is it equivalent to paper based laminated Aadhaar Letter?",
+      "answer": "Aadhaar PVC card is PVC based Aadhaar card which can be ordered online by paying nominal \ncharges. Yes, Aadhaar PVC card is equivalent to paper based Aadhaar letter.",
+      "metadata": {
+        "added_date": "2024-11-22T07:38:49.232675",
+        "last_updated": "2024-11-22T07:38:49.232676",
+        "source_type": "converted"
+      }
+    },
+    {
+      "id": "73fe2a2a",
+      "question": "I applied for Aadhaar earlier but did not get it. So, I re -applied. When will I get my Aadhaar?",
+      "answer": "If your Aadhaar was generated from the first Enrolment then every attempt to re -enrol will be \nrejected. DO NOT re -apply. You can retrieve your Aadhaar:  \n(a) Online using Retrieve EID/UID service available on https://myaadhaar.uidai.gov.in/ (if you have \nthe registered mobile no)  \n(b) By visiting any enrolment centre  \n(c) By dialing 1947  \nI recently updated my Aadhaar. Can you please expedite it? I need it urgently.keyboard_arrow_up  \nAadhaar update has a fixed process which takes up to 90 days from the date of update request. The \nupdate process cannot be altered. You may check the status from \nhttps://myaadhaar.uidai.gov.in/CheckAadhaarStatus",
+      "metadata": {
+        "added_date": "2024-11-22T07:38:49.232698",
+        "last_updated": "2024-11-22T07:38:49.232700",
+        "source_type": "converted"
+      }
+    }
+  ]
+}
