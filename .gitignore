@@ -37,6 +37,7 @@ data/vector_store/*
 data/models_cache/*
 logs/*
 *.log
+models/
 
 # Keep these directories with .gitkeep
 !data/vector_store/.gitkeep
