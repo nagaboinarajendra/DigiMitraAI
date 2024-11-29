@@ -47,3 +47,4 @@ models/
 # OS specific
 .DS_Store
 Thumbs.db
+digimitraai/credentials/google-cloud-credentials.json
