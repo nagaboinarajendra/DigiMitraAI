@@ -44,5 +44,9 @@ An intelligent chatbot system for Aadhaar-related queries using RAG (Retrieval A
 - Python 3.8+
 - See requirements.txt for package dependencies
 
+## Required Installations on Terminal
+sudo apt update && sudo apt install -y ffmpeg
+pip install librosa soundfile numpy scipy
+
 ## License
 [Your chosen license]

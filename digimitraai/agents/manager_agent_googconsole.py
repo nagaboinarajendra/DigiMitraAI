@@ -287,44 +287,21 @@ class ManagerAgent:
                         "success": False
                     }
                 
-                # Use English translation for processing
-                original_query = audio_result["text"]  # Original language text
-                query = audio_result["original_text"]  # English translation
-                print(f"Original language text: {original_query}")
-                print(f"English query: {query}")
+                original_query = audio_result["text"]
+                query = audio_result.get("original_text", original_query)  # Use English text for RAG/LLM
             else:
-                # Handle text input
+                # Handle text query
                 original_query = query
                 if source_language != 'english':
-                    # Translate to English for processing
                     translation = self.multilingual_agent.translate_text(
-                        query, 
-                        source_language, 
-                        'english'
+                        query, source_language, 'english'
                     )
                     if not translation["success"]:
                         return translation
                     query = translation["text"]
-                    print(f"Translated query to English: {query}")
-                else:
-                    query = original_query
 
-            # Process query in English using RAG/LLM
-            print(f"\nProcessing English query: {query}")
-            try:
-                # Try RAG first
-                rag_response = self.rag_agent.process_query(query)
-                
-                if rag_response["confidence"] >= self.rag_confidence_threshold:
-                    response = rag_response
-                else:
-                    # Use LLM if RAG confidence is low
-                    llm_response = self.llm_agent.process_query(query)
-                    response = llm_response
-                    
-            except Exception as e:
-                print(f"Error in query processing: {str(e)}")
-                response = self.llm_agent.process_query(query)  # Fallback to LLM
+            # Process with RAG/LLM
+            response = super().process_query(query)
 
             # Translate response if needed
             if target_language != 'english':
@@ -336,11 +313,10 @@ class ManagerAgent:
                 if translation["success"]:
                     response["original_answer"] = response["answer"]
                     response["answer"] = translation["text"]
-                    print(f"Translated response to {target_language}")
 
             response.update({
                 "original_query": original_query,
-                "english_query": query,
+                "translated_query": query,
                 "source_language": source_language,
                 "target_language": target_language
             })

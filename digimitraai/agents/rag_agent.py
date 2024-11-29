@@ -178,26 +178,21 @@ class RAGAgent:
         return any(keyword in query_lower for keyword in domain_keywords)
 
     def _calculate_confidence(self, query: str, source_documents) -> Dict:
-        """Calculate confidence score with stricter criteria"""
         try:
-            # Initialize response
             response = {
                 "confidence": 0.0,
                 "domain_relevant": False,
                 "has_sources": bool(source_documents),
                 "exact_match": False,
                 "semantic_match": 0.0,
-                "debug_info": {}  # Add debug information
+                "debug_info": {}
             }
             
-            # Check domain relevance
             response["domain_relevant"] = self._is_domain_relevant(query)
             
-            # If not domain relevant, return low confidence
             if not response["domain_relevant"]:
                 return response
             
-            # Check for exact FAQ match
             exact_match = self._find_exact_faq_match(query)
             if exact_match['confidence'] > 0.0:
                 response.update({
@@ -207,7 +202,6 @@ class RAGAgent:
                 })
                 return response
             
-            # If no sources but domain relevant, return low confidence
             if not source_documents:
                 response.update({
                     "confidence": 0.2,
@@ -215,85 +209,76 @@ class RAGAgent:
                     "debug_info": {"reason": "no_sources"}
                 })
                 return response
+                
+            query_embedding = self.embeddings.embed_query(query)
+            similarities = []
+            matched_texts = []
             
-            try:
-                # Calculate semantic similarity for each document
-                query_embedding = self.embeddings.embed_query(query)
-                similarities = []
-                matched_texts = []  # Store matched texts for debugging
-                
-                for doc in source_documents:
-                    # Extract the question part if it exists
-                    doc_text = doc.page_content
-                    if "Q:" in doc_text and "A:" in doc_text:
-                        question_part = doc_text.split("A:")[0].replace("Q:", "").strip()
-                    else:
-                        question_part = doc_text
+            for doc in source_documents:
+                doc_text = doc.page_content
+                if "Q:" in doc_text and "A:" in doc_text:
+                    question_part = doc_text.split("A:")[0].replace("Q:", "").strip()
+                else:
+                    question_part = doc_text
 
-                    doc_embedding = self.embeddings.embed_query(question_part)
-                    similarity = float(cosine_similarity(
-                        np.array(query_embedding).reshape(1, -1),
-                        np.array(doc_embedding).reshape(1, -1)
-                    )[0][0])
-                    
-                    similarities.append(similarity)
-                    matched_texts.append({
-                        "text": question_part[:100] + "...",  # First 100 chars
-                        "similarity": similarity
-                    })
+                # Check for key terms matching
+                query_terms = set(query.lower().split())
+                doc_terms = set(question_part.lower().split())
+                term_overlap = len(query_terms.intersection(doc_terms)) / len(query_terms)
 
-                # Get maximum similarity
-                max_similarity = max(similarities) if similarities else 0.0
-                response["semantic_match"] = max_similarity
+                doc_embedding = self.embeddings.embed_query(question_part)
+                similarity = float(cosine_similarity(
+                    np.array(query_embedding).reshape(1, -1),
+                    np.array(doc_embedding).reshape(1, -1)
+                )[0][0])
                 
-                # Store debug information
-                response["debug_info"].update({
+                # Adjust similarity based on term overlap
+                adjusted_similarity = similarity * (0.7 + 0.3 * term_overlap)
+                
+                similarities.append(adjusted_similarity)
+                matched_texts.append({
+                    "text": question_part[:100] + "...",
+                    "similarity": adjusted_similarity,
+                    "term_overlap": term_overlap
+                })
+
+            max_similarity = max(similarities) if similarities else 0.0
+            response["semantic_match"] = max_similarity
+            
+            # More stringent confidence calculation
+            if max_similarity >= 0.95:
+                confidence = 0.95
+            elif max_similarity >= 0.90:
+                confidence = 0.85
+            elif max_similarity >= 0.80:
+                confidence = 0.5  # Significantly reduced for partial matches
+            else:
+                confidence = 0.2  # Force low confidence for poor matches
+            
+            # Check for mandatory/optional specific terms
+            if 'mandatory' in query.lower() or 'compulsory' in query.lower():
+                matched_mandatory = any('mandatory' in doc.page_content.lower() or 
+                                    'compulsory' in doc.page_content.lower() 
+                                    for doc in source_documents)
+                if not matched_mandatory:
+                    confidence *= 0.5  # Reduce confidence if specific terms not found
+            
+            relevant_sources = len([s for s in similarities if s > 0.8])  # Increased threshold
+            if relevant_sources == 0:
+                confidence *= 0.5
+            
+            response.update({
+                "confidence": confidence,
+                "debug_info": {
                     "max_similarity": max_similarity,
-                    "all_similarities": similarities,
-                    "matched_texts": matched_texts,
-                    "num_sources": len(source_documents)
-                })
+                    "relevant_sources": relevant_sources,
+                    "final_confidence": confidence,
+                    "matched_texts": matched_texts
+                }
+            })
+            
+            return response
 
-                # Strict confidence calculation
-                if max_similarity >= 0.95:  # Near-exact match
-                    confidence = 0.95
-                elif max_similarity >= 0.85:  # Very high similarity
-                    confidence = 0.85
-                elif max_similarity >= 0.75:  # High similarity
-                    confidence = 0.6
-                elif max_similarity >= 0.6:  # Moderate similarity
-                    confidence = 0.4
-                else:  # Low similarity
-                    confidence = 0.2  # Force low confidence for poor matches
-                
-                # Adjust confidence based on the spread of similarities
-                relevant_sources = len([s for s in similarities if s > 0.6])
-                if relevant_sources == 0:
-                    confidence *= 0.5  # Significantly reduce confidence if no relevant sources
-                
-                response["confidence"] = confidence
-                response["debug_info"]["final_confidence"] = confidence
-                response["debug_info"]["relevant_sources"] = relevant_sources
-                
-                # Print detailed debug information
-                print("\nConfidence Calculation Debug:")
-                print(f"Max Similarity: {max_similarity:.4f}")
-                print(f"Relevant Sources: {relevant_sources}")
-                print(f"Final Confidence: {confidence:.4f}")
-                print("\nTop Matches:")
-                for match in sorted(matched_texts, key=lambda x: x['similarity'], reverse=True)[:2]:
-                    print(f"- {match['text']} (similarity: {match['similarity']:.4f})")
-                
-                return response
-
-            except Exception as e:
-                print(f"Error calculating similarity: {str(e)}")
-                response.update({
-                    "confidence": 0.2 if response["domain_relevant"] else 0.0,
-                    "debug_info": {"error": str(e)}
-                })
-                return response
-                
         except Exception as e:
             print(f"Error in confidence calculation: {str(e)}")
             return {
